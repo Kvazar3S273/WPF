@@ -1,0 +1,15 @@
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\bin\Debug\Photoshop.exe.config
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\bin\Debug\Photoshop.exe
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\bin\Debug\Photoshop.pdb
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.csprojAssemblyReference.cache
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\MainWindow.g.cs
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\App.g.cs
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop_MarkupCompile.cache
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop_MarkupCompile.lref
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\MainWindow.baml
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.g.resources
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.Properties.Resources.resources
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.csproj.GenerateResource.cache
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.csproj.CoreCompileInputs.cache
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.exe
+D:\ШАГ\0 Repository\WPF\Photoshop\Photoshop\obj\Debug\Photoshop.pdb
