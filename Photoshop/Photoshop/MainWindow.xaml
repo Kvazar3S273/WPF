@@ -5,9 +5,108 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Photoshop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Фотошоп" Height="350" Width="800">
     <Grid>
-        <Button Content="Ю кен ду іт&#xD;&#xA;іф ю белів ю кен" HorizontalAlignment="Left" Height="174" Margin="283,84,0,0" VerticalAlignment="Top" Width="308"/>
+        <TabControl HorizontalAlignment="Stretch" 
+                    Height="300" 
+                    Margin="10,10,0,0" 
+                    VerticalAlignment="Stretch" 
+                    Width="772">
+            <TabItem Header="Ink API">
+                <StackPanel Background="#FFE5E5E5">
+                    <ToolBar Name="InkToolBar" Height="60">
+                        <Border Margin="0,2,0,2.4" Width="280" VerticalAlignment="Center">
+                            <WrapPanel Height="41">
+                                <RadioButton x:Name="inkRadio" 
+                             Margin="5,10" 
+                             Content="Ink Mode!"
+                             IsChecked="True" Click="RadioButtonClicked" />
+                                <RadioButton x:Name="eraseRadio" 
+                             Margin="5,10" 
+                             Content="Erase Mode!" Click="RadioButtonClicked" />
+                                <RadioButton x:Name="selectRadio" 
+                             Margin="5,10" 
+                             Content="Select Mode!" Click="RadioButtonClicked" />
+                            </WrapPanel>
+                        </Border>
+                        <Separator/>
+
+                        <ComboBox x:Name="comboColors"
+                                  Width="175"
+                                  SelectionChanged="ColorChanged">
+                            <StackPanel Orientation="Horizontal"
+                                        Tag="Red">
+                                <Ellipse Fill="Red"
+                                         Height="30"
+                                         Width="30"/>
+                                <Label FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Content="Red"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Tag="Green">
+                                <Ellipse Fill="Green"
+                                         Height="30"
+                                         Width="30"/>
+                                <Label FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Content="Green"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Tag="Blue">
+                                <Ellipse Fill="Blue"
+                                         Height="30"
+                                         Width="30"/>
+                                <Label FontSize="20"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Content="Blue"/>
+                            </StackPanel>
+                        </ComboBox>
+
+                        <Separator/>
+                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" 
+                                        x:Name="btnSave" 
+                                        Margin="10,10"
+                                        Width="70" 
+                                        Content="Save Data" Click="SaveData"/>
+                        <Button Grid.Column="1" 
+                                        x:Name="btnLoad" 
+                                        Margin="10,10"
+                                        Width="70" 
+                                        Content="Load Data" Click="LoadData"/>
+                        <Button Grid.Column="2" 
+                                        x:Name="btnClear" 
+                                        Margin="10, 10"
+                                        Width="70" 
+                                        Content="Clear" Click="Clear"/>
+                    </Grid>
+                    </ToolBar>
+                    <InkCanvas x:Name="MyInkCanvas" Background="#FF79BFA3"/>
+
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Data Binding">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Data grid">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            
+        </TabControl>
+        
+        
+
+        
+        
 
     </Grid>
 </Window>
