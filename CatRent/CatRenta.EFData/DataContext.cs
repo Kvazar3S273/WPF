@@ -11,7 +11,7 @@ namespace CatRenta.EFData
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Server=91.238.103.51;Port=5743;Database=dbcatrent;Username=usercatrent;Password=$544$rrxlleo(ll3237sdfBG)K$t!Ube22}xk");
+            optionsBuilder.UseNpgsql("Server=91.238.103.51; Port=5743; Database=ba2hdb; Username=ba2h; Password=$544$B77w**G)K$t!ba2h22}");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace CatRenta.Application
             set
             {
                 _id = value;
-                this.NotifyPropertyChanged("Id");
+                NotifyPropertyChanged("Id");
             }
         }
 
@@ -31,7 +31,7 @@ namespace CatRenta.Application
             set
             {
                 _name = value;
-                this.NotifyPropertyChanged("Name");
+                NotifyPropertyChanged("Name");
             }
         }
 
@@ -42,7 +42,7 @@ namespace CatRenta.Application
             set
             {
                 _birthday = value;
-                this.NotifyPropertyChanged("Birthday");
+                NotifyPropertyChanged("Birthday");
             }
         }
 
@@ -62,7 +62,7 @@ namespace CatRenta.Application
             set
             {
                 _imageUrl = value;
-                this.NotifyPropertyChanged("ImageUrl");
+                NotifyPropertyChanged("ImageUrl");
             }
         }
 
@@ -70,9 +70,6 @@ namespace CatRenta.Application
 
         public void NotifyPropertyChanged(string propName)
         {
-            //if (this.PropertyChanged != null)
-            //    this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
         }
 

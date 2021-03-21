@@ -28,7 +28,6 @@ namespace Wpf.CatRent
         public MainWindow()
         {
             InitializeComponent();
-            
             DataSeed.SeedDataAsync(_context);
         }
 
@@ -48,13 +47,16 @@ namespace Wpf.CatRent
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            _cats.Add(new CatVM
-            {
-                Name = "Петро",
-                Birthday = new DateTime(2000, 5, 15),
-                Details = "Дружить із директром Іванкой",
-                ImageUrl = "https://icdn.lenta.ru/images/2020/01/28/17/20200128170822958/square_320_9146846fb3b1bfae5672755bc1896214.jpg"
-            });
+            AddCat addCat = new AddCat();
+            addCat.Show();
+            
+            //_cats.Add(new CatVM
+            //{
+            //    Name = "Мурзік",
+            //    Birthday = new DateTime(2000, 5, 15),
+            //    Details = "Знає японську мову",
+            //    ImageUrl = "https://icdn.lenta.ru/images/2020/01/28/17/20200128170822958/square_320_9146846fb3b1bfae5672755bc1896214.jpg"
+            //});
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -65,7 +67,7 @@ namespace Wpf.CatRent
                 {
                     var userView = dgSimple.SelectedItem as CatVM;
                     userView.Birthday = new DateTime(2003, 1, 23);
-                    userView.Details = "Пішов в гори!";
+                    userView.Details = "Знає прийоми джиу-джицу";
                     userView.ImageUrl = "https://i.pinimg.com/originals/ec/5a/a9/ec5aa93a38113ea5b346cb87b5c2c941.jpg";
                 }
             }

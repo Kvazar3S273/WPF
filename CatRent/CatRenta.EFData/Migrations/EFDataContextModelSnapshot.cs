@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CatRenta.EFData.Migrations
 {
     [DbContext(typeof(EFDataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    partial class EFDataContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

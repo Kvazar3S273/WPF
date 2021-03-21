@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CatRenta.EFData.Migrations
 {
     [DbContext(typeof(EFDataContext))]
-    [Migration("20210321111520_Add tblCats")]
+    [Migration("20210321192847_Add tblCats")]
     partial class AddtblCats
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
