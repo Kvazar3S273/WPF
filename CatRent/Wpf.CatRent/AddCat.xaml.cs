@@ -1,4 +1,5 @@
 ﻿using CatRenta.Application;
+using CatRenta.Domain;
 using CatRenta.EFData;
 using Microsoft.Win32;
 using System;
@@ -24,8 +25,11 @@ namespace Wpf.CatRent
     {
         private ObservableCollection<CatVM> _cats = new ObservableCollection<CatVM>();
         private EFDataContext _context = new EFDataContext();
+        /// <summary>
+        /// Повний шлях до файла
+        /// </summary>
         public string FileName { get; set; }
-
+        private bool _gender { get; set; }
         public AddCat()
         {
             InitializeComponent();
@@ -37,30 +41,66 @@ namespace Wpf.CatRent
             
         }
 
+        // Вибір фото кота
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog()==true)
             {
-                FileName = openFileDialog.FileName;
-                string file = FileName.Substring(2);
-                File.Copy(FileName, $"D:\\ШАГ\\0 Repository\\WPF\\CatRent\\Wpf.CatRent\\bin\\Debug\\netcoreapp3.1\\images\\{file}");
-            }
+                FileName = openFileDialog.FileName; // визначаємо шлях до файла
+                // нова папка (нове місце призначення файла)
+                string newPath = "D:\\ШАГ\\0 Repository\\WPF\\CatRent\\Wpf.CatRent\\bin\\Debug\\netcoreapp3.1\\images\\";
+                char ch = '\\'; // будемо шукати символ \
+                string file = FileName; // назва файла (без шляху)
+                int indexOfChar = file.IndexOf(ch); // індекс символа \
+                do // проходимо весь шлях до назви файла
+                {
+                    indexOfChar = file.IndexOf(ch); 
+                    file = file.Substring(indexOfChar + 1); // виділяємо файл окремо від шляху
+                } while (indexOfChar > 0);
+                newPath += file;    // створюємо новий шлях для файла
 
+                if (!File.Exists(newPath))
+                {
+                    File.Copy(FileName, newPath); // копіюємо файл в папку проекта
+                }
+                FileName = newPath; // замінюємо шлях до файла
+            }
         }
 
+        // Збереження нового кота
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            _cats.Add(new CatVM
+            var cats = new List<AppCat>
+                {
+                    new AppCat
+                        {
+                        Name = tbName.Text,
+                        Gender = _gender,
+                        Birthday = (DateTime)dpDate.SelectedDate,
+                        Details = tbDetails.Text,
+                        Image = FileName
+                        }
+                };
+            foreach (var cat in cats)
             {
-                Name = tbName.Text,
-                Birthday = (DateTime)dpDate.SelectedDate,
-                Details = tbDetails.Text,
-                ImageUrl = FileName.Substring(2)
-            });
-            _context.Add(_cats);
-            _context.SaveChanges();
+                _context.Add(cat);
+                _context.SaveChanges();
+            }
+            this.Close();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rbtn = (RadioButton)sender;
+            _gender = true;
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            RadioButton rbtn = (RadioButton)sender;
+            _gender = false;
         }
     }
 }

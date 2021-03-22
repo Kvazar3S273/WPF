@@ -56,11 +56,13 @@
                     <RadioButton Content="котик" 
                                  Margin="40,10" 
                                  HorizontalAlignment="Left" 
-                                 VerticalAlignment="Center"/>
+                                 VerticalAlignment="Center"
+                                 Checked="RadioButton_Checked"/>
                     <RadioButton Content="киця" 
                                  Margin="10" 
                                  HorizontalAlignment="Right" 
-                                 VerticalAlignment="Center"/>
+                                 VerticalAlignment="Center" 
+                                 Checked="RadioButton_Checked_1"/>
                 </WrapPanel>
             </WrapPanel>
             <WrapPanel>
@@ -71,12 +73,14 @@
                        Width="152"/>
                 <Button Width="238"
                         Margin="2"
-                        Content="Вибрати" Click="Button_Click">
+                        Content="Вибрати" 
+                        Click="Button_Click">
                 </Button>
             </WrapPanel>
             <Button Height="50" 
                     Margin="10,20"
-                    Content="Зберегти кота" Click="Button_Click_1"/>
+                    Content="Зберегти кота" 
+                    Click="Button_Click_1"/>
         </StackPanel>
     </DockPanel>
 </Window>

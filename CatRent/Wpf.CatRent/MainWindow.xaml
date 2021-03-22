@@ -21,6 +21,12 @@
                     Content="Видалити" 
                     Click="btnEdit_Click" 
                     Height="50"/>
+            <Button Name="btnUpdate" 
+                    Content="Оновити"
+                    Background="GreenYellow"
+                    Margin="0,5"
+                    Height="50" 
+                    Click="btnUpdate_Click"/>
         </StackPanel>
         
         <DataGrid Name="dgSimple" 

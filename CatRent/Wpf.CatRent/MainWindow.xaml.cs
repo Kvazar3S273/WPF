@@ -72,5 +72,10 @@ namespace Wpf.CatRent
                 }
             }
         }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            Window_Loaded(sender, e);
+        }
     }
 }
