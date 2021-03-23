@@ -25,6 +25,7 @@ namespace Wpf.CatRent
     {
         private ObservableCollection<CatVM> _cats = new ObservableCollection<CatVM>();
         private EFDataContext _context = new EFDataContext();
+        public int _idChangedCat { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace Wpf.CatRent
             var list = _context.Cats
                 .Select(x => new CatVM()
                 {
+                    Id = x.Id.ToString(),
                     Name = x.Name,
                     Birthday = x.Birthday,
                     Details = x.Details,
@@ -49,28 +51,28 @@ namespace Wpf.CatRent
         {
             AddCat addCat = new AddCat();
             addCat.Show();
-            
-            //_cats.Add(new CatVM
-            //{
-            //    Name = "Мурзік",
-            //    Birthday = new DateTime(2000, 5, 15),
-            //    Details = "Знає японську мову",
-            //    ImageUrl = "https://icdn.lenta.ru/images/2020/01/28/17/20200128170822958/square_320_9146846fb3b1bfae5672755bc1896214.jpg"
-            //});
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSimple.SelectedItem != null)
+            EditCat editCat = new EditCat();
+            if(editCat.ShowDialog()==true)
             {
-                if (dgSimple.SelectedItem is CatVM)
+                if (dgSimple.SelectedItem != null)
                 {
-                    var userView = dgSimple.SelectedItem as CatVM;
-                    userView.Birthday = new DateTime(2003, 1, 23);
-                    userView.Details = "Знає прийоми джиу-джицу";
-                    userView.ImageUrl = "https://i.pinimg.com/originals/ec/5a/a9/ec5aa93a38113ea5b346cb87b5c2c941.jpg";
+                    if (dgSimple.SelectedItem is CatVM)
+                    {
+                        var userView = dgSimple.SelectedItem as CatVM;
+                        userView.Details = editCat.ChangeDetails;
+                        userView.ImageUrl = editCat.ChangeImage;
+                        _idChangedCat = int.Parse(userView.Id);
+                    }
                 }
             }
+            var cat = _context.Cats.SingleOrDefault(c => c.Id == _idChangedCat);
+            cat.Details = editCat.ChangeDetails;
+            cat.Image = editCat.ChangeImage;
+            _context.SaveChanges();
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)

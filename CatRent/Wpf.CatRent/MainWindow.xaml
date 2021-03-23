@@ -29,7 +29,7 @@
                     Click="btnUpdate_Click"/>
         </StackPanel>
         
-        <DataGrid Name="dgSimple" 
+        <DataGrid x:Name="dgSimple" 
                   AutoGenerateColumns="false" 
                   Grid.Column="0" 
                   Grid.Row="0">
