@@ -70,14 +70,29 @@ namespace Wpf.CatRent
                 }
             }
             var cat = _context.Cats.SingleOrDefault(c => c.Id == _idChangedCat);
-            cat.Details = editCat.ChangeDetails;
-            cat.Image = editCat.ChangeImage;
+            if(editCat.IsChangeName)
+            {
+                cat.Name = editCat.ChangeName;
+            }
+            if(editCat.IsChangeDetails)
+            {
+                cat.Details = editCat.ChangeDetails;
+            }
+            if(editCat.IsChangeImage)
+            {
+                cat.Image = editCat.ChangeImage;
+            }
             _context.SaveChanges();
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             Window_Loaded(sender, e);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

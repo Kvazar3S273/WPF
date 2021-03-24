@@ -6,10 +6,23 @@
         xmlns:local="clr-namespace:Wpf.CatRent"
         mc:Ignorable="d"
         Title="Редагувати інформацію про кота" 
-        Height="286" 
+        Height="317" 
         Width="450">
     <DockPanel Margin="10">
         <StackPanel>
+            <WrapPanel Margin="5">
+                <Label Content="Редагувати кличку:" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Height="30" 
+                       Width="152"/>
+                <TextBox Name="tbChangeName" 
+                         AcceptsReturn="True" 
+                         HorizontalAlignment="Left" 
+                         Height="30" 
+                         VerticalAlignment="Top" 
+                         Width="238"/>
+            </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Змінити деталі:" 
                        HorizontalAlignment="Left" 

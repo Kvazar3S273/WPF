@@ -19,8 +19,7 @@
                     Height="50"/>
             <Button Name="btnDelete" 
                     Content="Видалити" 
-                    Click="btnEdit_Click" 
-                    Height="50"/>
+                    Height="50" Click="btnDelete_Click"/>
             <Button Name="btnUpdate" 
                     Content="Оновити"
                     Background="GreenYellow"

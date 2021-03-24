@@ -22,7 +22,11 @@ namespace Wpf.CatRent
     public partial class EditCat : Window
     {
         public string ChangeDetails { get; set; }
+        public bool IsChangeDetails { get; set; } = false;
+        public string ChangeName { get; set; }
+        public bool IsChangeName { get; set; } = false;
         public string ChangeImage { get; set; }
+        public bool IsChangeImage { get; set; } = false;
         public string FileName { get; set; }
         public EditCat()
         {
@@ -54,16 +58,24 @@ namespace Wpf.CatRent
                     File.Copy(FileName, newPath); // копіюємо файл в папку проекта
                 }
                 FileName = newPath; // замінюємо шлях до файла
+                ChangeImage = FileName;
+                IsChangeImage = true;
             }
         }
 
         // Збереження відредагованих даних про кота
         private void SaveEdit_Click(object sender, RoutedEventArgs e)
         {
-            ChangeDetails = tbChangeDetails.Text;
-            ChangeImage = FileName;
-            //MessageBox.Show(ChangeDetails);
-            //MessageBox.Show(ChangeImage);
+            if (!string.IsNullOrEmpty(tbChangeName.Text))
+            {
+                ChangeName = tbChangeName.Text;
+                IsChangeName = true;
+            }
+            if (!string.IsNullOrEmpty(tbChangeDetails.Text))
+            {
+                ChangeDetails = tbChangeDetails.Text;
+                IsChangeDetails = true;
+            }
             DialogResult = true;
             this.Close();
         }
