@@ -91,6 +91,7 @@ namespace Wpf.CatRent
             this.Close();
         }
 
+        // Виставлення статі кота за радіобаттонами
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton rbtn = (RadioButton)sender;

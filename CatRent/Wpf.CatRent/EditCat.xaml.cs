@@ -66,6 +66,7 @@ namespace Wpf.CatRent
         // Збереження відредагованих даних про кота
         private void SaveEdit_Click(object sender, RoutedEventArgs e)
         {
+            // Якщо поле не заповнялось, то воно не буде редагуватись
             if (!string.IsNullOrEmpty(tbChangeName.Text))
             {
                 ChangeName = tbChangeName.Text;

@@ -25,7 +25,7 @@ namespace Wpf.CatRent
     {
         private ObservableCollection<CatVM> _cats = new ObservableCollection<CatVM>();
         private EFDataContext _context = new EFDataContext();
-        public int _idChangedCat { get; set; }
+        public int _idCat { get; set; }
         public MainWindow()
         {
             InitializeComponent();
@@ -55,7 +55,9 @@ namespace Wpf.CatRent
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            // Запускаємо форму редагування
             EditCat editCat = new EditCat();
+            // Якщо результат роботи форми позитивний, проводимо заміну полів
             if(editCat.ShowDialog()==true)
             {
                 if (dgSimple.SelectedItem != null)
@@ -65,11 +67,12 @@ namespace Wpf.CatRent
                         var userView = dgSimple.SelectedItem as CatVM;
                         userView.Details = editCat.ChangeDetails;
                         userView.ImageUrl = editCat.ChangeImage;
-                        _idChangedCat = int.Parse(userView.Id);
+                        _idCat = int.Parse(userView.Id);
                     }
                 }
             }
-            var cat = _context.Cats.SingleOrDefault(c => c.Id == _idChangedCat);
+            // Зберігаємо всі зміни в БД
+            var cat = _context.Cats.SingleOrDefault(c => c.Id == _idCat);
             if(editCat.IsChangeName)
             {
                 cat.Name = editCat.ChangeName;
@@ -84,15 +87,27 @@ namespace Wpf.CatRent
             }
             _context.SaveChanges();
         }
-
+        // Оновляємо датагрід
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             Window_Loaded(sender, e);
         }
 
+        // Видалення кота з поля, на якому стоїть курсор
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgSimple.SelectedItem != null)
+            {
+                if (dgSimple.SelectedItem is CatVM)
+                {
+                    var userView = dgSimple.SelectedItem as CatVM;
+                    int id = int.Parse(userView.Id);
+                    _idCat = id;
+                    var cat = _context.Cats.SingleOrDefault(c => c.Id == id);
+                    _context.Cats.Remove(cat);
+                    _context.SaveChanges();
+                }
+            }
         }
     }
 }
