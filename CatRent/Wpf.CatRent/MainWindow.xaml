@@ -26,6 +26,7 @@
                     Margin="0,5"
                     Height="50" 
                     Click="btnUpdate_Click"/>
+            <Button Name="btnValidation" Content="Валідація" Margin="0,5" Click="btnValidation_Click"/>
         </StackPanel>
         
         <DataGrid x:Name="dgSimple" 

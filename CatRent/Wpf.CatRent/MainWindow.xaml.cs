@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Wpf.CatRent.Views;
 
 namespace Wpf.CatRent
 {
@@ -37,7 +38,7 @@ namespace Wpf.CatRent
             var list = _context.Cats
                 .Select(x => new CatVM()
                 {
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Name = x.Name,
                     Birthday = x.Birthday,
                     Details = x.Details,
@@ -49,8 +50,13 @@ namespace Wpf.CatRent
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddCat addCat = new AddCat();
+            AddCatWindow addCat = new AddCatWindow(this._cats);
             addCat.Show();
+        }
+        private void btnValidation_Click(object sender, RoutedEventArgs e)
+        {
+            UserView window = new UserView();
+            window.Show();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -67,7 +73,7 @@ namespace Wpf.CatRent
                         var userView = dgSimple.SelectedItem as CatVM;
                         userView.Details = editCat.ChangeDetails;
                         userView.ImageUrl = editCat.ChangeImage;
-                        _idCat = int.Parse(userView.Id);
+                        _idCat = userView.Id;
                     }
                 }
             }
@@ -101,7 +107,7 @@ namespace Wpf.CatRent
                 if (dgSimple.SelectedItem is CatVM)
                 {
                     var userView = dgSimple.SelectedItem as CatVM;
-                    int id = int.Parse(userView.Id);
+                    int id = userView.Id;
                     _idCat = id;
                     var cat = _context.Cats.SingleOrDefault(c => c.Id == id);
                     _context.Cats.Remove(cat);

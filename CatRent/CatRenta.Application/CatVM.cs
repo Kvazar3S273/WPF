@@ -9,13 +9,14 @@ namespace CatRenta.Application
 {
     public class CatVM : INotifyPropertyChanged
     {
-        private string _id;
+        private int _id;
         private string _name;
         private DateTime _birthday;
         private string _details;
         private string _imageUrl;
+        private decimal _price;
 
-        public string Id
+        public int Id
         {
             get { return _id; }
             set
@@ -63,6 +64,16 @@ namespace CatRenta.Application
             {
                 _imageUrl = value;
                 NotifyPropertyChanged("ImageUrl");
+            }
+        }
+
+        public decimal Price
+        {
+            get { return _price; }
+            set
+            {
+                _price = value;
+                this.NotifyPropertyChanged("Price");
             }
         }
 

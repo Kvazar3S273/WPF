@@ -30,6 +30,32 @@ namespace CatRenta.EFData
                     context.SaveChanges();
                 }
             }
+
+            if (!context.CatPrices.Any())
+            {
+                var cat = context.Cats.FirstOrDefault();
+                var catPrices = new List<AppCatPrice>
+                                {
+                                    new AppCatPrice
+                                        {
+                                            CatId=cat.Id,
+                                            DateCreate=DateTime.Now,
+                                            Price=450.23M
+                                        },
+                                    new AppCatPrice
+                                        {
+                                            CatId=cat.Id,
+                                            DateCreate=new DateTime(2021,1,14),
+                                            Price=250.75M
+                                        }
+                                };
+
+                foreach (var price in catPrices)
+                {
+                    context.Add(price);
+                    context.SaveChanges();
+                }
+            }
         }
     }
 }
