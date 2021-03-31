@@ -4,10 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CatRenta.Application.Validators;
+using FluentValidation;
 
 namespace CatRenta.Application
 {
-    public class CatVM : INotifyPropertyChanged
+    public class CatVM : INotifyPropertyChanged, IDataErrorInfo
     {
         private int _id;
         private string _name;
@@ -15,6 +17,13 @@ namespace CatRenta.Application
         private string _details;
         private string _imageUrl;
         private decimal _price;
+        public bool EnableValidation { get; set; }
+        private readonly UserValidator _userValidator;
+
+        public CatVM()
+        {
+            _userValidator = new UserValidator();
+        }
 
         public int Id
         {
@@ -22,7 +31,7 @@ namespace CatRenta.Application
             set
             {
                 _id = value;
-                NotifyPropertyChanged("Id");
+                OnPropertyChanged("Id");
             }
         }
 
@@ -32,7 +41,7 @@ namespace CatRenta.Application
             set
             {
                 _name = value;
-                NotifyPropertyChanged("Name");
+                OnPropertyChanged("Name");
             }
         }
 
@@ -43,7 +52,7 @@ namespace CatRenta.Application
             set
             {
                 _birthday = value;
-                NotifyPropertyChanged("Birthday");
+                OnPropertyChanged("Birthday");
             }
         }
 
@@ -53,7 +62,7 @@ namespace CatRenta.Application
             set
             {
                 _details = value;
-                NotifyPropertyChanged("Details");
+                OnPropertyChanged("Details");
             }
         }
 
@@ -63,7 +72,7 @@ namespace CatRenta.Application
             set
             {
                 _imageUrl = value;
-                NotifyPropertyChanged("ImageUrl");
+                OnPropertyChanged("ImageUrl");
             }
         }
 
@@ -73,16 +82,54 @@ namespace CatRenta.Application
             set
             {
                 _price = value;
-                this.NotifyPropertyChanged("Price");
+                this.OnPropertyChanged("Price");
+            }
+        }
+        public string this[string columnName]
+        {
+            get
+            {
+                if (EnableValidation)
+                {
+                    var firstOrDefault = _userValidator.Validate(this)
+                        .Errors.FirstOrDefault(lol => lol.PropertyName == columnName);
+                    if (firstOrDefault != null)
+                        return _userValidator != null ? firstOrDefault.ErrorMessage : "";
+                }
+                return "";
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propName)
+        public string Error
         {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+            get
+            {
+                if (_userValidator != null)
+                {
+                    if (EnableValidation)
+                    {
+                        var results = _userValidator.Validate(this);
+                        if (results != null && results.Errors.Any())
+                        {
+                            var errors = string.Join(Environment.NewLine, results.Errors.Select(x => x.ErrorMessage).ToArray());
+                            return errors;
+                        }
+                    }
+                }
+                return string.Empty;
+            }
         }
 
+        //public void NotifyPropertyChanged(string propName)
+        //{
+        //    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        //}
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

@@ -42,7 +42,10 @@ namespace Wpf.CatRent
                     Name = x.Name,
                     Birthday = x.Birthday,
                     Details = x.Details,
-                    ImageUrl = x.Image
+                    ImageUrl = x.Image,
+                    Price = x.AppCatPrices
+                    .OrderByDescending(x=>x.DateCreate)
+                    .FirstOrDefault().Price
                 }).ToList();
             _cats = new ObservableCollection<CatVM>(list);
             dgSimple.ItemsSource = _cats;
@@ -91,6 +94,7 @@ namespace Wpf.CatRent
             {
                 cat.Image = editCat.ChangeImage;
             }
+
             _context.SaveChanges();
         }
         // Оновляємо датагрід

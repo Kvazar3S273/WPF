@@ -26,6 +26,7 @@ namespace Wpf.CatRent
     {
         private readonly ObservableCollection<CatVM> _cats;
         private EFDataContext _context = new EFDataContext();
+        private readonly CatVM newCat = new CatVM();
 
         /// <summary>
         /// Повний шлях до файла
@@ -36,6 +37,8 @@ namespace Wpf.CatRent
         public AddCatWindow(ObservableCollection<CatVM> cats)
         {
             InitializeComponent();
+            newCat.EnableValidation = false;
+            DataContext = newCat;
             _cats = cats;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -58,25 +61,29 @@ namespace Wpf.CatRent
         // Збереження нового кота
         private void SaveCat_Click(object sender, RoutedEventArgs e)
         {
-            var extension = Path.GetExtension(FileName);
-            var imageName = Path.GetRandomFileName() + extension;
-            var dir = Directory.GetCurrentDirectory();
-            var saveDir = Path.Combine(dir, "images");
-            if (!Directory.Exists(saveDir))
-                Directory.CreateDirectory(saveDir);
-            var fileSave = Path.Combine(saveDir, imageName);
-            File.Copy(FileName, fileSave);
+            newCat.EnableValidation = true;
+            if (string.IsNullOrEmpty(newCat.Error))
+            {
+                MessageBox.Show("Bomba");
+                var extension = Path.GetExtension(FileName);
+                var imageName = Path.GetRandomFileName() + extension;
+                var dir = Directory.GetCurrentDirectory();
+                var saveDir = Path.Combine(dir, "images");
+                if (!Directory.Exists(saveDir))
+                    Directory.CreateDirectory(saveDir);
+                var fileSave = Path.Combine(saveDir, imageName);
+                File.Copy(FileName, fileSave);
 
-            var cat =
-                    new AppCat
-                    {
-                        Name = tbName.Text,
-                        Gender = _gender,
-                        Birthday = (DateTime)dpDate.SelectedDate,
-                        Details = tbDetails.Text,
-                        Image = fileSave
-                    };
-            cat.AppCatPrices = new List<AppCatPrice>
+                var cat =
+                        new AppCat
+                        {
+                            Name = tbName.Text,
+                            Gender = _gender,
+                            Birthday = (DateTime)dpDate.SelectedDate,
+                            Details = tbDetails.Text,
+                            Image = fileSave
+                        };
+                cat.AppCatPrices = new List<AppCatPrice>
             {
                 new AppCatPrice
                 {
@@ -85,19 +92,28 @@ namespace Wpf.CatRent
                     Price=decimal.Parse(tbPrice.Text)
                 }
             };
-            _context.Add(cat);
-            _context.SaveChanges();
+                _context.Add(cat);
+                _context.SaveChanges();
 
-            _cats.Add(new CatVM
-            {
-                Id = cat.Id,
-                Name = cat.Name,
-                Birthday = cat.Birthday,
-                Details = cat.Details,
-                ImageUrl = cat.Image
+                _cats.Add(new CatVM
+                {
+                    Id = cat.Id,
+                    Name = cat.Name,
+                    Birthday = cat.Birthday,
+                    Details = cat.Details,
+                    ImageUrl = cat.Image
 
-            });
+                });
+
+
             this.Close();
+            }
+            else
+                MessageBox.Show(newCat.Error);
+
+            
+
+            
         }
 
         // Виставлення статі кота за радіобаттонами

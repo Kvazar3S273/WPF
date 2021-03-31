@@ -65,13 +65,13 @@ namespace CatRenta.Application.ViewModels
         {
             get
             {
-                if (EnableValidation)
-                {
-                    var firstOrDefault = _userValidator.Validate(this)
-                        .Errors.FirstOrDefault(lol => lol.PropertyName == columnName);
-                    if (firstOrDefault != null)
-                        return _userValidator != null ? firstOrDefault.ErrorMessage : "";
-                }
+                //if (EnableValidation)
+                //{
+                //    var firstOrDefault = _userValidator.Validate(this)
+                //        .Errors.FirstOrDefault(lol => lol.PropertyName == columnName);
+                //    if (firstOrDefault != null)
+                //        return _userValidator != null ? firstOrDefault.ErrorMessage : "";
+                //}
                 return "";
             }
         }
@@ -80,18 +80,18 @@ namespace CatRenta.Application.ViewModels
         {
             get
             {
-                if (_userValidator != null)
-                {
-                    if (EnableValidation)
-                    {
-                        var results = _userValidator.Validate(this);
-                        if (results != null && results.Errors.Any())
-                        {
-                            var errors = string.Join(Environment.NewLine, results.Errors.Select(x => x.ErrorMessage).ToArray());
-                            return errors;
-                        }
-                    }
-                }
+                //if (_userValidator != null)
+                //{
+                //    if (EnableValidation)
+                //    {
+                //        var results = _userValidator.Validate(this);
+                //        if (results != null && results.Errors.Any())
+                //        {
+                //            var errors = string.Join(Environment.NewLine, results.Errors.Select(x => x.ErrorMessage).ToArray());
+                //            return errors;
+                //        }
+                //    }
+                //}
                 return string.Empty;
             }
         }

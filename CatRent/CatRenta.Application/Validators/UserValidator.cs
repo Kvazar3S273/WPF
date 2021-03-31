@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace CatRenta.Application.Validators
 {
-    public class UserValidator : AbstractValidator<UserViewModel>
+    public class UserValidator : AbstractValidator<CatVM>
     {
         public UserValidator()
         {
@@ -15,17 +15,17 @@ namespace CatRenta.Application.Validators
                 .Must(BeAValidName)
                 .WithMessage("Введене неправильне ім\'я");
 
-            RuleFor(user => user.Email)
-                .EmailAddress()
-                .WithMessage("Please Specify a Valid E-Mail Address");
+            //RuleFor(user => user.Email)
+            //    .EmailAddress()
+            //    .WithMessage("Please Specify a Valid E-Mail Address");
 
-            RuleFor(user => user.Email)
-                .NotEmpty()
-                .WithMessage("Please Specify a Email.");
+            //RuleFor(user => user.Email)
+            //    .NotEmpty()
+            //    .WithMessage("Please Specify a Email.");
 
-            RuleFor(user => user.Zip)
-                .Must(BeAValidZip)
-                .WithMessage("Please Enter a Valid Zip Code");
+            //RuleFor(user => user.Zip)
+            //    .Must(BeAValidZip)
+            //    .WithMessage("Please Enter a Valid Zip Code");
 
 
         }

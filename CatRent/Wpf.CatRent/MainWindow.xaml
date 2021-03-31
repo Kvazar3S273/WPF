@@ -35,6 +35,7 @@
                   Grid.Row="0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Кличка" 
+                                    Width="120"
                                     Binding="{Binding Name}"/>
                 <DataGridTemplateColumn Header="Дата народження">
                     <DataGridTemplateColumn.CellTemplate>
@@ -44,8 +45,12 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Деталі" 
+                <DataGridTextColumn Header="Деталі"
+                                    Width="260"
                                     Binding="{Binding Details}"/>
+                <DataGridTextColumn Header="Ціна"
+                                    Width="100"
+                                    Binding="{Binding Price}"/>
 
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>

@@ -14,12 +14,36 @@
                        VerticalAlignment="Center" 
                        Height="30" 
                        Width="152"/>
-                <TextBox x:Name="tbName" 
+
+
+
+                <TextBox
+                Name="tbName"
+                Text="{Binding Name, 
+                    UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True}"
+                    Width="100">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <!-- Placeholder for the TextBox itself -->
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+
+
+
+
+                <!--<TextBox x:Name="tbName" 
                          HorizontalAlignment="Left" 
                          Height="30" 
                          TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
-                         Width="238"/>
+                         Width="238"/>-->
 
             </WrapPanel>
 

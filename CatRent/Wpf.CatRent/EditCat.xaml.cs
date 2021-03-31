@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace Wpf.CatRent
 {
@@ -40,27 +41,20 @@ namespace Wpf.CatRent
             openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                FileName = openFileDialog.FileName; // визначаємо шлях до файла
-                // нова папка (нове місце призначення файла)
-                string newPath = "D:\\ШАГ\\0 Repository\\WPF\\CatRent\\Wpf.CatRent\\bin\\Debug\\netcoreapp3.1\\images\\";
-                char ch = '\\'; // будемо шукати символ \
-                string file = FileName; // назва файла (без шляху)
-                int indexOfChar = file.IndexOf(ch); // індекс символа \
-                do // проходимо весь шлях до назви файла
-                {
-                    indexOfChar = file.IndexOf(ch);
-                    file = file.Substring(indexOfChar + 1); // виділяємо файл окремо від шляху
-                } while (indexOfChar > 0);
-                newPath += file;    // створюємо новий шлях для файла
-
-                if (!File.Exists(newPath))
-                {
-                    File.Copy(FileName, newPath); // копіюємо файл в папку проекта
-                }
-                FileName = newPath; // замінюємо шлях до файла
-                ChangeImage = FileName;
-                IsChangeImage = true;
+                FileName = openFileDialog.FileName;
             }
+            var extension = Path.GetExtension(FileName);
+            var imageName = Path.GetRandomFileName() + extension;
+            var dir = Directory.GetCurrentDirectory();
+            var saveDir = Path.Combine(dir, "images");
+            if (!Directory.Exists(saveDir))
+                Directory.CreateDirectory(saveDir);
+            var fileSave = Path.Combine(saveDir, imageName);
+            File.Copy(FileName, fileSave);
+            ChangeImage = fileSave;
+
+            IsChangeImage = true;
+
         }
 
         // Збереження відредагованих даних про кота
