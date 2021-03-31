@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf.CatRent"
         mc:Ignorable="d"
-        Title="Додати нового кота" Height="434" Width="450" Loaded="Window_Loaded">
+        Title="Додати нового кота" Height="434" Width="575" Loaded="Window_Loaded">
     <DockPanel Margin="10">
         <StackPanel>
             <WrapPanel Margin="5">
@@ -22,7 +22,7 @@
                 Text="{Binding Name, 
                     UpdateSourceTrigger=PropertyChanged, 
                     ValidatesOnDataErrors=True}"
-                    Width="100">
+                    Width="150">
                     <Validation.ErrorTemplate>
                         <ControlTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -38,12 +38,7 @@
 
 
 
-                <!--<TextBox x:Name="tbName" 
-                         HorizontalAlignment="Left" 
-                         Height="30" 
-                         TextWrapping="Wrap" 
-                         VerticalAlignment="Top" 
-                         Width="238"/>-->
+                
 
             </WrapPanel>
 
@@ -58,7 +53,7 @@
                          Height="30" 
                          TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
-                         Width="238"/>
+                         Width="150"/>
             </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Дата народження:" 
@@ -83,7 +78,7 @@
                          Height="90" 
                          TextWrapping="Wrap" 
                          VerticalAlignment="Top" 
-                         Width="238"/>
+                         Width="150"/>
             </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Стать:" 
@@ -112,11 +107,9 @@
                        VerticalAlignment="Center" 
                        Height="40" 
                        Width="152"/>
-                <Button Width="238"
-                        Margin="2"
+                <Button Width="391"
                         Content="Вибрати" 
-                        Click="btnSelectImage_Click">
-                </Button>
+                        Click="btnSelectImage_Click"/>
             </WrapPanel>
             <Button Height="50" 
                     Margin="10,20"

@@ -64,7 +64,7 @@ namespace Wpf.CatRent
             newCat.EnableValidation = true;
             if (string.IsNullOrEmpty(newCat.Error))
             {
-                MessageBox.Show("Bomba");
+                MessageBox.Show("Додавання успішне");
                 var extension = Path.GetExtension(FileName);
                 var imageName = Path.GetRandomFileName() + extension;
                 var dir = Directory.GetCurrentDirectory();
@@ -105,15 +105,10 @@ namespace Wpf.CatRent
 
                 });
 
-
             this.Close();
             }
             else
                 MessageBox.Show(newCat.Error);
-
-            
-
-            
         }
 
         // Виставлення статі кота за радіобаттонами

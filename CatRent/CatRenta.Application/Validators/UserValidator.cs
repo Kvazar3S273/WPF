@@ -15,6 +15,7 @@ namespace CatRenta.Application.Validators
                 .Must(BeAValidName)
                 .WithMessage("Введене неправильне ім\'я");
 
+
             //RuleFor(user => user.Email)
             //    .EmailAddress()
             //    .WithMessage("Please Specify a Valid E-Mail Address");
@@ -30,16 +31,7 @@ namespace CatRenta.Application.Validators
 
         }
 
-        private static bool BeAValidZip(string zip)
-        {
-            if (!string.IsNullOrEmpty(zip))
-            {
-                var regex = new Regex(@"\d{5}");
-                return regex.IsMatch(zip);
-            }
-            return false;
-        }
-
+        
         private static bool BeAValidName(string name)
         {
             if (!string.IsNullOrEmpty(name))
