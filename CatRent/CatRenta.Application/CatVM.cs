@@ -82,7 +82,7 @@ namespace CatRenta.Application
             set
             {
                 _price = value;
-                this.OnPropertyChanged("Price");
+                OnPropertyChanged("Price");
             }
         }
         public string this[string columnName]

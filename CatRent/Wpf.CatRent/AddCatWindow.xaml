@@ -15,8 +15,6 @@
                        Height="30" 
                        Width="152"/>
 
-
-
                 <TextBox
                 Name="tbName"
                 Text="{Binding Name, 
@@ -26,19 +24,12 @@
                     <Validation.ErrorTemplate>
                         <ControlTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <!-- Placeholder for the TextBox itself -->
                                 <AdornedElementPlaceholder x:Name="textBox"/>
                                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
                             </StackPanel>
                         </ControlTemplate>
                     </Validation.ErrorTemplate>
                 </TextBox>
-
-
-
-
-
-                
 
             </WrapPanel>
 
@@ -48,12 +39,23 @@
                        VerticalAlignment="Center" 
                        Height="30" 
                        Width="152"/>
-                <TextBox x:Name="tbPrice" 
-                         HorizontalAlignment="Left" 
-                         Height="30" 
-                         TextWrapping="Wrap" 
-                         VerticalAlignment="Top" 
-                         Width="150"/>
+
+                <TextBox
+                Name="tbPrice"
+                Text="{Binding Price, 
+                    UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True}"
+                    Width="150">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
             </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Дата народження:" 
@@ -61,7 +63,6 @@
                        VerticalAlignment="Center" 
                        Height="30" 
                        Width="152"/>
-                <!--<TextBox Name="tbBirthday" HorizontalAlignment="Left" Height="30" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>-->
                 <DatePicker x:Name="dpDate" 
                             SelectedDate="{Binding Birthday}" 
                             BorderThickness="0" />
@@ -89,7 +90,7 @@
                 <WrapPanel Width="238">
                     <RadioButton Content="котик" 
                                  Tag="true"
-                                 Margin="40,10" 
+                                 Margin="10,10" 
                                  HorizontalAlignment="Left" 
                                  VerticalAlignment="Center"
                                  Checked="RadioButton_Checked"/>
@@ -107,7 +108,7 @@
                        VerticalAlignment="Center" 
                        Height="40" 
                        Width="152"/>
-                <Button Width="391"
+                <Button Width="350"
                         Content="Вибрати" 
                         Click="btnSelectImage_Click"/>
             </WrapPanel>

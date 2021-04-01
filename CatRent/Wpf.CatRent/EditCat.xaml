@@ -5,9 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf.CatRent"
         mc:Ignorable="d"
-        Title="Редагувати інформацію про кота" 
-        Height="317" 
-        Width="450">
+        Title="Редагувати інформацію про кота" Height="434" Width="575">
     <DockPanel Margin="10">
         <StackPanel>
             <WrapPanel Margin="5">
@@ -16,12 +14,29 @@
                        VerticalAlignment="Center" 
                        Height="30" 
                        Width="152"/>
-                <TextBox Name="tbChangeName" 
+
+                <TextBox
+                Name="tbChangeName"
+                Text="{Binding Name, 
+                    UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True}"
+                    Width="150">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+                <!--<TextBox Name="tbChangeName" 
                          AcceptsReturn="True" 
                          HorizontalAlignment="Left" 
                          Height="30" 
                          VerticalAlignment="Top" 
-                         Width="238"/>
+                         Width="238"/>-->
             </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Змінити деталі:" 

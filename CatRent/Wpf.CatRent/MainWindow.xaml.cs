@@ -26,6 +26,8 @@ namespace Wpf.CatRent
     {
         private ObservableCollection<CatVM> _cats = new ObservableCollection<CatVM>();
         private EFDataContext _context = new EFDataContext();
+        private readonly CatVM edit = new CatVM();
+
         public int _idCat { get; set; }
         public MainWindow()
         {
@@ -56,16 +58,17 @@ namespace Wpf.CatRent
             AddCatWindow addCat = new AddCatWindow(this._cats);
             addCat.Show();
         }
-        private void btnValidation_Click(object sender, RoutedEventArgs e)
-        {
-            UserView window = new UserView();
-            window.Show();
-        }
+        //private void btnValidation_Click(object sender, RoutedEventArgs e)
+        //{
+        //    UserView window = new UserView();
+        //    window.Show();
+        //}
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             // Запускаємо форму редагування
             EditCat editCat = new EditCat();
+            
             // Якщо результат роботи форми позитивний, проводимо заміну полів
             if(editCat.ShowDialog()==true)
             {
@@ -81,21 +84,33 @@ namespace Wpf.CatRent
                 }
             }
             // Зберігаємо всі зміни в БД
-            var cat = _context.Cats.SingleOrDefault(c => c.Id == _idCat);
-            if(editCat.IsChangeName)
+            edit.EnableValidation = true;
+            if (string.IsNullOrEmpty(edit.Error))
             {
-                cat.Name = editCat.ChangeName;
-            }
-            if(editCat.IsChangeDetails)
-            {
-                cat.Details = editCat.ChangeDetails;
-            }
-            if(editCat.IsChangeImage)
-            {
-                cat.Image = editCat.ChangeImage;
-            }
+                var cat = _context.Cats.SingleOrDefault(c => c.Id == _idCat);
 
-            _context.SaveChanges();
+                MessageBox.Show("Редагування успішне");
+                if (editCat.IsChangeName)
+                {
+                    cat.Name = editCat.ChangeName;
+                }
+                if (editCat.IsChangeDetails)
+                {
+                    cat.Details = editCat.ChangeDetails;
+                }
+                if (editCat.IsChangeImage)
+                {
+                    cat.Image = editCat.ChangeImage;
+                }
+
+                _context.SaveChanges();
+
+            }
+            else
+                MessageBox.Show(edit.Error);
+
+
+            
         }
         // Оновляємо датагрід
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
