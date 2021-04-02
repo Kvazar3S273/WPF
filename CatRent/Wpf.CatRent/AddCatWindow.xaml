@@ -65,7 +65,7 @@
                        Width="152"/>
                 <DatePicker x:Name="dpDate" 
                             SelectedDate="{Binding Birthday}" 
-                            BorderThickness="0" />
+                            BorderThickness="0" IsTodayHighlighted="True" SelectedDateFormat="Long" />
             </WrapPanel>
             <WrapPanel Margin="5">
                 <Label Content="Деталі:" 

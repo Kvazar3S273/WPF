@@ -39,6 +39,44 @@
                          Width="238"/>-->
             </WrapPanel>
             <WrapPanel Margin="5">
+                <Label Content="Редагувати ціну:" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Height="30" 
+                       Width="152"/>
+
+                <TextBox
+                Name="tbChangePrice"
+                Text="{Binding Price, 
+                    UpdateSourceTrigger=PropertyChanged, 
+                    ValidatesOnDataErrors=True}"
+                    Width="150">
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <AdornedElementPlaceholder x:Name="textBox"/>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+               
+            </WrapPanel>
+
+            <WrapPanel Margin="5">
+                <Label Content="Дата народження:" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Height="30" 
+                       Width="152"/>
+                <DatePicker x:Name="dpDate" 
+                            SelectedDate="{Binding Birthday}" 
+                            BorderThickness="0" 
+                            IsTodayHighlighted="True" 
+                            SelectedDateFormat="Long" />
+            </WrapPanel>
+            <WrapPanel Margin="5">
                 <Label Content="Змінити деталі:" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 

@@ -22,7 +22,6 @@ namespace CatRenta.Application.Validators
             RuleFor(cat => cat.Birthday)
                 .Must(BeValidDate)
                 .WithMessage("Неправильна дата");
-
         }
 
         

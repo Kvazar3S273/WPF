@@ -1,9 +1,11 @@
 ﻿using CatRenta.Application;
 using CatRenta.Domain;
+using CatRenta.EFData;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,16 +24,17 @@ namespace Wpf.CatRent
     /// </summary>
     public partial class EditCat : Window
     {
-        public string ChangeDetails { get; set; }
-        public bool IsChangeDetails { get; set; } = false;
-        public string ChangeName { get; set; }
-        public bool IsChangeName { get; set; } = false;
-        public string ChangeImage { get; set; }
-        public bool IsChangeImage { get; set; } = false;
-        public string FileName { get; set; }
-        public EditCat()
+        public string File_Name { get; set; }
+        private string selectedFile = string.Empty;
+        private EFDataContext _context = new EFDataContext();
+        private readonly CatVM cat = new CatVM();
+        public int _editedIndex { get; set; }
+        public EditCat(int editedIndex)
         {
             InitializeComponent();
+            cat.EnableValidation = true;
+            _editedIndex = editedIndex;
+            DataContext = cat;
         }
 
         // Вибір нового фото кота
@@ -41,38 +44,85 @@ namespace Wpf.CatRent
             openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
-                FileName = openFileDialog.FileName;
+                try
+                {
+                    selectedFile = openFileDialog.FileName;
+                    //MessageBox.Show(selectedFile);
+                }
+                catch 
+                {
+                    MessageBox.Show("Файл не відкривається, можливо не підходить формат");
+                }
             }
-            var extension = Path.GetExtension(FileName);
-            var imageName = Path.GetRandomFileName() + extension;
-            var dir = Directory.GetCurrentDirectory();
-            var saveDir = Path.Combine(dir, "images");
-            if (!Directory.Exists(saveDir))
-                Directory.CreateDirectory(saveDir);
-            var fileSave = Path.Combine(saveDir, imageName);
-            File.Copy(FileName, fileSave);
-            ChangeImage = fileSave;
-
-            IsChangeImage = true;
-
         }
 
         // Збереження відредагованих даних про кота
         private void SaveEdit_Click(object sender, RoutedEventArgs e)
         {
-            // Якщо поле не заповнялось, то воно не буде редагуватись
+            var edit = _context.Cats.SingleOrDefault(e => e.Id == _editedIndex);
+
+            if(!string.IsNullOrEmpty(selectedFile))
+            {
+                string extension = Path.GetExtension(selectedFile);
+                string imageNameplusext = Path.GetRandomFileName();
+                string imageName = Path.GetFileNameWithoutExtension(imageNameplusext) + extension;
+                string dir = Directory.GetCurrentDirectory();
+                string saveDir = Path.Combine(dir, "images");
+                if (!Directory.Exists(saveDir))
+                   Directory.CreateDirectory(saveDir);
+                string fileSave = Path.Combine(saveDir, imageName);
+
+                File.Copy(selectedFile, fileSave);
+
+                edit.Image = fileSave;
+                //_context.SaveChanges();
+            }
+
             if (!string.IsNullOrEmpty(tbChangeName.Text))
             {
-                ChangeName = tbChangeName.Text;
-                IsChangeName = true;
+                if (!cat.Error.Equals("Введене неправильне ім\'я"))
+                {
+                    //MessageBox.Show("Its OK name");
+                    edit.Name = tbChangeName.Text;
+                    //_context.SaveChanges();
+                }
             }
+
+            if (!string.IsNullOrEmpty(tbChangePrice.Text))
+            {
+                if (!cat.Error.Equals("Помилка при введенні ціни"))
+                {
+                    //MessageBox.Show("Its OK price");
+                    edit.AppCatPrices = new List<AppCatPrice>
+                    {
+                        new AppCatPrice
+                        {
+                            CatId=edit.Id,
+                            DateCreate=DateTime.Now,
+                            Price=decimal.Parse(tbChangePrice.Text)
+                        }
+                    };
+                    //_context.SaveChanges();
+                }
+            }
+
+            if (dpDate.SelectedDate != null)
+            {
+                if (!cat.Error.Equals("Некоректна дата!"))
+                {
+                    edit.Birthday = (DateTime)dpDate.SelectedDate;
+                    //_context.SaveChanges();
+                }
+            }
+
             if (!string.IsNullOrEmpty(tbChangeDetails.Text))
             {
-                ChangeDetails = tbChangeDetails.Text;
-                IsChangeDetails = true;
+                edit.Details = tbChangeDetails.Text;
+                //_context.SaveChanges();
             }
-            DialogResult = true;
-            this.Close();
+            _context.SaveChanges();
+
+            Close();
         }
     }
 }
