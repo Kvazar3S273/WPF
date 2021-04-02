@@ -6,27 +6,34 @@
         xmlns:local="clr-namespace:Wpf.CatRent"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        <Style x:Key="MyStyle">
+            <Setter Property="ItemsControl.FontFamily" Value="Arial"/>
+            <Setter Property="ItemsControl.Background" Value="LightGray"/>
+            <Setter Property="ItemsControl.Foreground" Value="Red"/>
+            <Setter Property="ItemsControl.Height" Value="50"/>
+            <Setter Property="ItemsControl.Margin" Value="0,5"/>
+        </Style>
+    </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0" Width="150">
-            <Button Name="btnAdd" 
+            <Button x:Name="btnAdd" 
                     Content="Додати" 
                     Click="btnAdd_Click" 
-                    Height="50"/>
-            <Button Name="btnEdit" 
+                    Style="{StaticResource MyStyle}"/>
+            <Button x:Name="btnEdit" 
                     Content="Редагувати" 
-                    Margin="0,5" 
                     Click="btnEdit_Click" 
-                    Height="50"/>
+                    Style="{StaticResource MyStyle}"/>
             <Button Name="btnDelete" 
                     Content="Видалити" 
-                    Height="50" Click="btnDelete_Click"/>
+                    Click="btnDelete_Click"
+                    Style="{StaticResource MyStyle}"/>
             <Button Name="btnUpdate" 
                     Content="Оновити"
                     Background="GreenYellow"
-                    Margin="0,5"
-                    Height="50" 
-                    Click="btnUpdate_Click"/>
-            <!--<Button Name="btnValidation" Content="Валідація" Margin="0,5" Click="btnValidation_Click"/>-->
+                    Click="btnUpdate_Click"
+                    Style="{StaticResource MyStyle}"/>
         </StackPanel>
         
         <DataGrid x:Name="dgSimple" 
