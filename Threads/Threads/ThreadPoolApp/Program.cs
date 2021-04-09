@@ -44,7 +44,7 @@ namespace ThreadPoolApp
 
             WaitCallback workItem = new WaitCallback(PrintTheNumbers);
 
-            // Queue the method 10 times
+            // Черга
             for (int i = 0; i < 10; i++)
             {
                 ThreadPool.QueueUserWorkItem(workItem, p);
