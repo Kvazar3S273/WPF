@@ -38,14 +38,19 @@
                     Click="btnUpdate_Click"
                     Style="{StaticResource MyStyle}"/>
             
-            <Label Content="Скільки додати котів?" HorizontalAlignment="Center"/>
-            <TextBox x:Name="tbHowCats" Width="80"/>
+            
+            <!--<Label Content="Скільки додати котів?" HorizontalAlignment="Center"/>-->
+            <!--<TextBox x:Name="tbHowCats" Width="80"/>-->
             <Button Name="btnAddRange" 
                     Content="Додати одним махом" 
                     Click="btnAddRange_Click"
                     Style="{StaticResource MyStyle}"/>
+            <Button Name="btnPauseAddRange" 
+                    Content="Пауза" 
+                    Style="{StaticResource MyStyle}"
+                    Click="btnPauseAddRange_Click"/>
 
-            <Grid>
+            <!--<Grid>
                 <ProgressBar Minimum="0" Maximum="100" Name="pbStatus" Height="20" Margin="0,5,0,0"/>
                 <TextBlock Text="{Binding ElementName=pbStatus, Path=Value, StringFormat={}{0:0}%}" 
                            HorizontalAlignment="Center" 
@@ -56,7 +61,7 @@
                    VerticalAlignment="Top"
                    RenderTransformOrigin="1,0.649"
                    />
-            </Grid>
+            </Grid>-->
             <Button Name="btnCancel" 
                     Content="Скасувати" 
                     Click="btnCancel_Click"
@@ -64,7 +69,34 @@
                     Margin="0,5,0,0"
                     Background="DarkOrange"/>
         </StackPanel>
-        
+
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Name="lblCursorPosition"  />
+            </StatusBarItem>
+            <Separator Grid.Column="1" />
+            <StatusBarItem Grid.Column="2">
+                <TextBlock Name = "lblInfoStatus"  Text="Козак" />
+            </StatusBarItem>
+            <Separator Grid.Column="3" />
+            <StatusBarItem Grid.Column="4">
+                <ProgressBar Name="pbCats" Value="0" Width="90" Height="16" />
+            </StatusBarItem>
+        </StatusBar>
+
         <DataGrid x:Name="dgSimple" 
                   AutoGenerateColumns="false" 
                   Grid.Column="0" 

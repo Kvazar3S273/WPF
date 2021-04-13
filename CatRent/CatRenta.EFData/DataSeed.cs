@@ -9,7 +9,7 @@ namespace CatRenta.EFData
 {
     public class DataSeed
     {
-        public static void SeedDataAsync(EFDataContext context)
+        public static void SeedData(EFDataContext context)
         {
             if (!context.Cats.Any())
             {
@@ -56,6 +56,10 @@ namespace CatRenta.EFData
                     context.SaveChanges();
                 }
             }
+        }
+        public static Task SeedDataAsync(EFDataContext context)
+        {
+            return Task.Run(() => SeedData(context));
         }
     }
 }
