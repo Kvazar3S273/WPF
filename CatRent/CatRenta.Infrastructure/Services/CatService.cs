@@ -32,6 +32,8 @@ namespace CatRenta.Infrastructure.Services
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            List<AppCat> hasAdded = new List<AppCat>();
+
             for (int i = 0; i < count; i++)
             {
                 mrse.WaitOne();
@@ -48,11 +50,22 @@ namespace CatRenta.Infrastructure.Services
                     Gender = true,
                     Image = "33445.jpg"
                 };
-                _context.Cats.Add(appCat);
-                _context.SaveChanges();
+                hasAdded.Add(appCat);
+
+                  
+                
                 EventInsertItem?.Invoke(i + 1);
+                
                 Console.WriteLine("Insert cat"+appCat.Id);
             }
+
+            if (hasAdded.Count == count)
+                foreach (var item in hasAdded)
+                {
+                    _context.Cats.Add(item);
+                    _context.SaveChanges();
+                }
+
             stopwatch.Stop();
             TimeSpan ts = stopwatch.Elapsed;
             string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",

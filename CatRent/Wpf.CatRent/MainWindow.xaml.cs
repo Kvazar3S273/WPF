@@ -35,9 +35,9 @@ namespace Wpf.CatRent
         private EFDataContext _context = new EFDataContext();
         private ICatService _catService = new CatService();
         ManualResetEvent _mrse = new ManualResetEvent(false);
-        bool abort = false;
+        //bool abort = false;
         private readonly CatVM edit = new CatVM();
-        private BackgroundWorker worker = null;
+        //private BackgroundWorker worker = null;
         readonly ManualResetEvent _inwork = new ManualResetEvent(false);
         private int countPush { get; set; } = 0;
 
@@ -71,6 +71,8 @@ namespace Wpf.CatRent
                 ts.Milliseconds / 10);
             lblCursorPosition.Text = elapsedTime;
             lblInfoStatus.Text = "Підключення до БД пройшло успішно";
+            int catCount = _context.Cats.Count();
+            lblDBCount.Text = $"Котів у базі: {catCount}";
             await DataSeed.SeedDataAsync(_context);
 
             stopWatch = new Stopwatch();
@@ -88,7 +90,7 @@ namespace Wpf.CatRent
                     .OrderByDescending(x=>x.DateCreate)
                     .FirstOrDefault().Price
                 })
-                .OrderBy(x=>x.Name)
+                //.OrderBy(x=>x.Name)
                 .ToList();
             stopWatch.Stop();
             ts = stopWatch.Elapsed;
@@ -160,9 +162,9 @@ namespace Wpf.CatRent
             ///
             btnAddRange.IsEnabled = false;
             Resume();
-            int count = 1000;
-            pbCats.Maximum = count;
-            await _catService.InsertCatsAsync(count, _mrse);
+            moreCats = 500;
+            pbCats.Maximum = moreCats;
+            await _catService.InsertCatsAsync(moreCats, _mrse);
             btnAddRange.IsEnabled = true;
         }
         
@@ -233,6 +235,8 @@ namespace Wpf.CatRent
             ///    pbStatus.Value = 0;
             ///}
 
+            btnAddRange.Content = "Додати одним махом";
+            pbCats.Value = 0;
             _catService.CanselAsyncMethod = true;
         }
 

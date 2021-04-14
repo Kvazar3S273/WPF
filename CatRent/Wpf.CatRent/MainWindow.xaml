@@ -75,6 +75,8 @@
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="100" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -85,16 +87,23 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem>
-                <TextBlock Name="lblCursorPosition"  />
+                
+                <TextBlock Name="lblDBCount"  Text="К-сть"/>
             </StatusBarItem>
             <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2">
-                <TextBlock Name = "lblInfoStatus"  Text="Козак" />
+                <TextBlock Name="lblCursorPosition"  />
+                
             </StatusBarItem>
             <Separator Grid.Column="3" />
             <StatusBarItem Grid.Column="4">
+                <TextBlock Name = "lblInfoStatus"  Text="Козак" />
+            </StatusBarItem>
+            <Separator Grid.Column="5" />
+            <StatusBarItem Grid.Column="6">
                 <ProgressBar Name="pbCats" Value="0" Width="90" Height="16" />
             </StatusBarItem>
+            
         </StatusBar>
 
         <DataGrid x:Name="dgSimple" 
