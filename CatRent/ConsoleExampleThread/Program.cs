@@ -19,7 +19,7 @@ namespace ConsoleExampleThread
             Console.WriteLine("На початку роботи котів: " + catService.Count());
             Console.WriteLine("Скільки котів додати в БД?");
             count = int.Parse(Console.ReadLine());
-            catService.InsertCats(count);
+            //catService.InsertCatsAsync(count);
             Console.WriteLine("В кінці роботи котів: " + catService.Count());
         }
     }
